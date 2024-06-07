@@ -1,9 +1,9 @@
-id: org.telegram.desktop
+id: com.ayugram.desktop
 runtime: org.freedesktop.Platform
 runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
-command: telegram-desktop
-rename-icon: telegram
+command: ayugram-desktop
+rename-icon: ayugram
 finish-args:
   - --share=ipc
   - --share=network
@@ -155,8 +155,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/protocolbuffers/protobuf.git
-        commit: 3d9f7c430a5ae1385512908801492d4421c3cdb7
-        tag: v27.1
+        commit: a978b75794a6ce4547c9db08a115c458d9190934
+        tag: v27.0
         x-checker-data:
           type: json
           url: https://api.github.com/repos/protocolbuffers/protobuf/releases/latest
@@ -409,9 +409,9 @@ modules:
         commit: 3bb3d757681e6cc5135aec6529a753dc3dcdcfb9
         x-checker-data:
           type: json
-          parent-id: telegram-desktop-git-0
+          parent-id: ayugram-desktop-git-0
           commit-data-url: >-
-            "https://github.com/telegramdesktop/tdesktop/raw/\($parent.new.tag//$parent.current.tag)/snap/snapcraft.yaml"
+            "https://github.com/AyuGram/AyuGramDesktop/raw/\($parent.new.tag//$parent.current.tag)/snap/snapcraft.yaml"
           commit-query: >-
             .parts.webrtc."source-commit"
           version-data-url: >-
@@ -425,7 +425,7 @@ modules:
     cleanup:
       - '*'
 
-  - name: telegram-desktop
+  - name: ayugram-desktop
     buildsystem: cmake-ninja
     builddir: true
     build-options:
@@ -440,15 +440,16 @@ modules:
       - -DDESKTOP_APP_USE_PACKAGED_LAZY=ON
     sources:
       - type: git
-        url: https://github.com/telegramdesktop/tdesktop.git
-        commit: 6c0ea0eb9f666fce471ed32efe0e83d9c62aba48
-        tag: v5.1.5
+        url: https://github.com/AyuGram/AyuGramDesktop.git
+        commit: c86ea4807acaccf7b4eb6d2aef2ece3c8e861054
+        tag: v5.1.2
         x-checker-data:
           type: json
-          url: https://api.github.com/repos/telegramdesktop/tdesktop/releases
+          url: https://api.github.com/repos/AyuGram/AyuGramDesktop/releases
           tag-query: first | .tag_name
           timestamp-query: first | .published_at
           version-query: $tag | sub("^[vV]"; "")
       - type: shell
         commands:
           - sed -i '/-Werror/d' Telegram/ThirdParty/dispatch/cmake/modules/DispatchCompilerWarnings.cmake
+      - tdesktop.json
