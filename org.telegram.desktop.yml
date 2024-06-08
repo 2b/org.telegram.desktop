@@ -5,18 +5,16 @@ sdk: org.freedesktop.Sdk
 command: ayugram-desktop
 rename-icon: ayugram
 finish-args:
-  - --share=ipc
   - --share=network
   - --socket=wayland
-  - --socket=fallback-x11
   - --socket=pulseaudio
-  - --device=all
   - --talk-name=org.gnome.Mutter.IdleMonitor
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.indicator.application
   - --talk-name=org.ayatana.indicator.application
   - --filesystem=xdg-run/pipewire-0
+  - --filesystem=home:ro
   - --unset-env=QT_PLUGIN_PATH
   - --env=PATH=/app/lib/webview/bin:/app/bin:/usr/bin
 sdk-extensions:
@@ -411,9 +409,9 @@ modules:
         commit: 3bb3d757681e6cc5135aec6529a753dc3dcdcfb9
         x-checker-data:
           type: json
-          parent-id: ayugram-desktop-git-0
+          parent-id: telegram-desktop-git-0
           commit-data-url: >-
-            "https://github.com/AyuGram/AyuGramDesktop/raw/\($parent.new.tag//$parent.current.tag)/snap/snapcraft.yaml"
+            "https://github.com/telegramdesktop/tdesktop/raw/\($parent.new.tag//$parent.current.tag)/snap/snapcraft.yaml"
           commit-query: >-
             .parts.webrtc."source-commit"
           version-data-url: >-
@@ -454,4 +452,3 @@ modules:
       - type: shell
         commands:
           - sed -i '/-Werror/d' Telegram/ThirdParty/dispatch/cmake/modules/DispatchCompilerWarnings.cmake
-      - tdesktop.json
