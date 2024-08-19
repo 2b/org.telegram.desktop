@@ -1,22 +1,20 @@
-id: org.telegram.desktop
+id: com.ayugram.desktop
 runtime: org.freedesktop.Platform
 runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
-command: telegram-desktop
-rename-icon: telegram
+command: ayugram-desktop
+rename-icon: ayugram
 finish-args:
-  - --share=ipc
   - --share=network
   - --socket=wayland
-  - --socket=fallback-x11
   - --socket=pulseaudio
-  - --device=all
   - --talk-name=org.gnome.Mutter.IdleMonitor
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=com.canonical.indicator.application
   - --talk-name=org.ayatana.indicator.application
   - --filesystem=xdg-run/pipewire-0
+  - --filesystem=home:ro
   - --unset-env=QT_PLUGIN_PATH
   - --env=PATH=/app/lib/webview/bin:/app/bin:/usr/bin
 sdk-extensions:
@@ -38,6 +36,10 @@ cleanup-commands:
   - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
   - mkdir -p ${FLATPAK_DEST}/lib/webview
 build-options:
+  cflags: -DNDEBUG -g0
+  cxxflags: -DNDEBUG -g0
+  strip: true
+  no-debuginfo: true
   append-path: /usr/lib/sdk/llvm16/bin
   append-ld-library-path: /usr/lib/sdk/llvm16/lib
 cleanup:
@@ -444,7 +446,7 @@ modules:
     cleanup:
       - '*'
 
-  - name: telegram-desktop
+  - name: ayugram-desktop
     buildsystem: cmake-ninja
     builddir: true
     build-options:
@@ -459,12 +461,11 @@ modules:
       - -DDESKTOP_APP_USE_PACKAGED_LAZY=ON
     sources:
       - type: git
-        url: https://github.com/telegramdesktop/tdesktop.git
-        commit: 2c1788a63a9eacf90dbf2676cee933e55907e977
-        tag: v5.4.1
+        url: https://github.com/AyuGram/AyuGramDesktop.git
+        commit: 0979ab0b5f1cd411df86609177d0d89cc9c5752c
         x-checker-data:
           type: json
-          url: https://api.github.com/repos/telegramdesktop/tdesktop/releases
+          url: https://api.github.com/repos/AyuGram/AyuGramDesktop/releases
           tag-query: first | .tag_name
           timestamp-query: first | .published_at
           version-query: $tag | sub("^[vV]"; "")
