@@ -1,16 +1,14 @@
-id: org.telegram.desktop
+id: com.ayugram.desktop
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
-command: telegram-desktop
-rename-icon: telegram
+command: ayugram-desktop
+rename-icon: ayugram
 finish-args:
-  - --share=ipc
   - --share=network
   - --socket=wayland
-  - --socket=fallback-x11
   - --socket=pulseaudio
-  - --device=all
+  - --filesystem=home:ro
   - --talk-name=org.gnome.Mutter.IdleMonitor
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
@@ -391,7 +389,7 @@ modules:
     cleanup:
       - '*'
 
-  - name: telegram-desktop
+  - name: ayugram-desktop
     buildsystem: cmake-ninja
     builddir: true
     build-options:
@@ -406,8 +404,8 @@ modules:
       - -DDESKTOP_APP_USE_PACKAGED_LAZY=ON
     sources:
       - type: git
-        url: https://github.com/telegramdesktop/tdesktop.git
-        commit: 3e49b45418a54b41d500bf533e63577a35b845d5
+        url: https://github.com/AyuGram/AyuGramDesktop.git
+        commit: 87da02ac1586f080bbb37b9b098b736fa7568dc1
         tag: v5.8.3
         x-checker-data:
           type: json
