@@ -23,7 +23,7 @@ jobs:
         key: ayugram-flatpak-${{ github.sha }}
         restore-keys: ayugram-flatpak-
 
-    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6.3
+    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6.4
       with:
         bundle: ayugram.flatpak
         manifest-path: org.telegram.desktop.yml
